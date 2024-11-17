@@ -3,29 +3,70 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Bookstore for Mutual Aid</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Permanent+Marker&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
 </head>
-<body>
-    <!-- Book Listing Form -->
-    <section id="book-listing-section">
-        <h2>List a Book for Donation</h2>
-        <form id="book-form">
-        <input type="text" id="isbn" placeholder="Enter ISBN" required>
-        <button type="button" onclick="fetchBookData()">Fetch Book Info</button>
-        <div id="book-details">
-            <input type="text" id="title" placeholder="Title" required>
-            <textarea id="description" placeholder="Description"></textarea>
-            <input type="number" id="price" placeholder="Price" required>
-            <select id="condition">
-            <option value="brand new">Brand New</option>
-            <option value="like new">Like New</option>
-            <option value="lightly used">Lightly Used</option>
-            <option value="well loved">Well Loved</option>
-            </select>
-            <textarea id="review" placeholder="Your Review"></textarea>
-            <button type="button" onclick="submitBook()">Submit to Store</button>
-        </div>
-        </form>
-    </section>    
+
+<body id="listing">
+
+    <header id="header-box">
+        <a class="header" id="home-button" href="index.html">bookstore for mutual aid</a>
+        <section class="header-link-box">
+            <a class="header" id="header-link" href="howthisworks.html">how this works</a>
+            <a class="header" id="header-link" href="impact.html">impact</a>
+            <a class="header" id="header-link" href="waitlist.html">list your books</a>
+            <a class="header" id="header-link" href="cart.html">shopping cart</a>
+        </section>
+    </header>
+
+    <main>
+        <section class="list-books">
+
+            <h1>Enter ISBN to fetch book details</h1>
+
+            <section class="listing-box">
+
+                <section class="fetch-box">
+                    <input type="text" id="isbn-input" placeholder="enter ISBN (e.g., 9780140449266)">
+                    <button id="fetch-button">fetch book</button>
+                </section>
+
+                <section id="book-details" class="hidden">
+
+                    <div class="image-box">
+                        <img id="book-cover-small" alt="Book Cover - Small">
+                        <img id="book-cover-large" alt="Book Cover - Large">
+                    </div>
+                    
+                    <div class="details-box">
+                        <h2 id="book-title"></h2>
+                        <p id="book-author"></p>
+                        <p id="book-genre"></p>
+                        <p id="book-summary"></p>
+                    </div>
+
+                </section>
+
+            </section>
+    
+        </section>
+
+        <button id="back-to-top" title="Back to Top">↑</button>
+
+    </main>
+
+    <footer>
+        <section class="footer">
+            <section class="footer-link-box">
+                <a class="footer-link" href="contact.html">about/ contact</a>
+            </section>
+        </section>
+    </footer>
+
+  <script src="listing.js"></script>
 </body>
 </html>
