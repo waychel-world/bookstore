@@ -209,3 +209,10 @@ h1 {
 #back-to-top:hover {
   background-color: #967c5d;
 }
+
+/* coming soon */
+
+.coming-soon {
+    padding: 0px 50px 0px 50px;
+    height: 530px;
+}
