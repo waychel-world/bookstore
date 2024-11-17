@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- Book Listing Form -->
+    <section id="book-listing-section">
+        <h2>List a Book for Donation</h2>
+        <form id="book-form">
+        <input type="text" id="isbn" placeholder="Enter ISBN" required>
+        <button type="button" onclick="fetchBookData()">Fetch Book Info</button>
+        <div id="book-details">
+            <input type="text" id="title" placeholder="Title" required>
+            <textarea id="description" placeholder="Description"></textarea>
+            <input type="number" id="price" placeholder="Price" required>
+            <select id="condition">
+            <option value="brand new">Brand New</option>
+            <option value="like new">Like New</option>
+            <option value="lightly used">Lightly Used</option>
+            <option value="well loved">Well Loved</option>
+            </select>
+            <textarea id="review" placeholder="Your Review"></textarea>
+            <button type="button" onclick="submitBook()">Submit to Store</button>
+        </div>
+        </form>
+    </section>    
+</body>
+</html>
