@@ -32,23 +32,52 @@
 
                 <section class="fetch-box">
                     <input type="text" id="isbn-input" placeholder="enter ISBN (e.g., 9780140449266)">
-                    <button id="fetch-button">fetch book</button>
+                    <button id="fetch-button" class="listing-button">fetch book</button>
                 </section>
 
-                <section id="book-details" class="hidden">
+                <section id="book-details" style="display: none;">
 
-                    <div class="image-box">
-                        <img id="book-cover-small" alt="Book Cover - Small">
-                        <img id="book-cover-large" alt="Book Cover - Large">
+                    <div id="editor-title">
+                        <h2>Edit book details</h2>
+                    </div>
+                
+                    <div class="details-container">
+
+                        <div class="text-box">
+
+                            <div>
+                                <label class="listing-label">Title:</label>
+                                <input type="text" id="book-title" class="listing-input" />
+                            </div>
+                            <div>
+                                <label class="listing-label">Author(s):</label>
+                                <input type="text" id="book-author" class="listing-input" />
+                            </div>
+                            <div>
+                                <label class="listing-label">Genre:</label>
+                                <input type="text" id="book-genre" class="listing-input" />
+                            </div>
+                            <div>
+                                <label class="listing-label">Summary:</label>
+                                <textarea id="book-summary" rows="12" cols="100" class="listing-input"></textarea>
+                            </div>
+                            <div>
+                                <label class="listing-label">Suggested contribution:</label>
+                                <input type="number" id="suggested-contribution" class="listing-input" step="0.01" min="0" placeholder="$0.00" />
+                            </div>
+                            <div>
+                                <button id="save-button" class="listing-button">list it!</button>
+                            </div>
+                            
+                        </div>
+    
+                        <div class="image-box">
+                            <img id="book-cover-large" alt="Book Cover - Large">
+                            <img id="book-cover-small" alt="Book Cover - Small">
+                        </div>
+
                     </div>
                     
-                    <div class="details-box">
-                        <h2 id="book-title"></h2>
-                        <p id="book-author"></p>
-                        <p id="book-genre"></p>
-                        <p id="book-summary"></p>
-                    </div>
-
                 </section>
 
             </section>

@@ -1,77 +1,92 @@
-document.getElementById("fetch-button").addEventListener("click", fetchBookDetails);
+//CLEAR OLD DATA 
 
-function fetchBookDetails() {
-  const isbn = document.getElementById("isbn-input").value.trim();
-
-  if (!isbn) {
-    alert("Please enter an ISBN!");
-    return;
-  }
-
-  // Open Library API URL for large cover image
-  const openLibraryUrl = `https://openlibrary.org/api/books?bibkeys=ISBN:${isbn}&format=json&jscmd=data`;
-
-  // Google Books API URL for book details including small thumbnail
-  const googleBooksUrl = `https://www.googleapis.com/books/v1/volumes?q=isbn:${isbn}`;
-
-  // First, fetch data from Open Library for large cover image
-  fetch(openLibraryUrl)
-    .then((response) => response.json())
-    .then((openLibraryData) => {
-      const openLibraryBook = openLibraryData[`ISBN:${isbn}`];
-
-      if (!openLibraryBook) {
-        alert("No book found for this ISBN in Open Library.");
-        return;
-      }
-
-      const largeImage = openLibraryBook.cover?.large || "https://via.placeholder.com/500";
-
-      // Now fetch data from Google Books for small thumbnail and other details
-      fetch(googleBooksUrl)
-        .then((response) => response.json())
-        .then((googleBooksData) => {
-          if (googleBooksData.totalItems === 0) {
-            alert("No book found for this ISBN in Google Books.");
-            return;
-          }
-
-          const googleBook = googleBooksData.items[0].volumeInfo;
-          const title = googleBook.title || "No Title Available";
-          const authors = googleBook.authors?.join(", ") || "Unknown Author";
-          const description = googleBook.description || "No description available.";
-          const categories = googleBook.categories?.join(", ") || "No categories available.";
-          
-          // Extract small thumbnail image from Google Books
-          const smallImage = googleBook.imageLinks?.smallThumbnail || "https://via.placeholder.com/150";
-
-          // Fetch genre and subject information (you can use categories as genre)
-          const genre = categories || "No genre available";
-
-          // Populate the UI with fetched data
-          document.getElementById("book-cover-small").src = smallImage; // Small image from Google Books
-          document.getElementById("book-cover-large").src = largeImage; // Large image from Open Library
-          document.getElementById("book-title").textContent = title;
-          document.getElementById("book-author").textContent = `Author(s): ${authors}`;
-          document.getElementById("book-summary").textContent = description;
-          document.getElementById("book-genre").textContent = `Genre: ${genre}`;
-
-          // Show the details section
-          document.getElementById("book-details").style.display = "flex";
-        })
-        .catch((error) => {
-          console.error("Error fetching data from Google Books:", error);
-          alert("An error occurred while fetching book details from Google Books.");
-        });
-    })
-    .catch((error) => {
-      console.error("Error fetching data from Open Library:", error);
-      alert("An error occurred while fetching book details from Open Library.");
-    });
+function resetBookDetails() {
+    document.getElementById("book-cover-small").src = "https://via.placeholder.com/150";
+    document.getElementById("book-cover-large").src = "https://via.placeholder.com/400";
+    document.getElementById("book-title").value = "";
+    document.getElementById("book-author").value = "";
+    document.getElementById("book-summary").value = "";
+    document.getElementById("book-genre").value = "";
+    document.getElementById("suggested-contribution").value = "";
+    console.log("data cleared")
 }
 
 
-// Back to top button
+resetBookDetails(); // call when page loads
+
+
+//FETCH BOOK DETAILS 
+  // Need account and API key for google books, double check API endpoint for open library
+
+document.getElementById("fetch-button").addEventListener("click", fetchBookDetails);
+
+async function fetchBookDetails() {
+
+  resetBookDetails();   // Clear old data
+
+  const isbn = document.getElementById("isbn-input").value.trim();
+
+  if (!isbn) {
+      alert("Please enter an ISBN!");
+      return;
+  }
+
+  const openLibraryUrl = `https://openlibrary.org/api/books?bibkeys=ISBN:${isbn}&format=json&jscmd=data`;
+  const googleBooksUrl = `https://www.googleapis.com/books/v1/volumes?q=isbn:${isbn}`;
+
+  let largeImage = "https://via.placeholder.com/400";
+  let smallImage = "https://via.placeholder.com/150";
+  let title = "No Title Available";
+  let authors = "Unknown Author";
+  let description = "No description available.";
+  let categories = "No categories available.";
+
+  try {
+      // Fetch Open Library data
+      const openLibraryResponse = await fetch(openLibraryUrl);
+      const openLibraryData = await openLibraryResponse.json();
+      const openLibraryBook = openLibraryData[`ISBN:${isbn}`];
+
+      if (openLibraryBook) {
+          largeImage = openLibraryBook.cover?.large || largeImage;
+      }
+  } catch (error) {
+      console.error("Error fetching Open Library data:", error);
+  }
+
+  try {
+      // Fetch Google Books data
+      const googleBooksResponse = await fetch(googleBooksUrl);
+      const googleBooksData = await googleBooksResponse.json();
+
+      if (googleBooksData.totalItems > 0) {
+          const googleBook = googleBooksData.items[0].volumeInfo;
+
+          title = googleBook.title || title;
+          authors = googleBook.authors?.join(", ") || authors;
+          description = googleBook.description || description;
+          categories = googleBook.categories?.join(", ") || categories;
+          smallImage = googleBook.imageLinks?.smallThumbnail || smallImage;
+      }
+  } catch (error) {
+      console.error("Error fetching Google Books data:", error);
+  }
+
+  // Populate UI fields
+  document.getElementById("book-cover-small").src = smallImage;
+  document.getElementById("book-cover-large").src = largeImage;
+  document.getElementById("book-title").value = title;
+  document.getElementById("book-author").value = authors;
+  document.getElementById("book-summary").value = description;
+  document.getElementById("book-genre").value = categories;
+
+  // Show details section
+  document.getElementById("book-details").style.display = "flex";
+}
+
+
+
+// 'BACK TO TOP' BUTTON
 
 document.addEventListener('DOMContentLoaded', () => {
     const backToTopButton = document.getElementById('back-to-top');
@@ -93,3 +108,42 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
   });
+
+
+// SAVE LISTING TO DATABASE
+
+document.getElementById("save-button").addEventListener("click", saveBookDetails);
+
+function saveBookDetails() {
+    const data = {
+        isbn: document.getElementById("isbn-input").value,
+        title: document.getElementById("book-title").value,
+        authors: document.getElementById("book-author").value,
+        genre: document.getElementById("book-genre").value,
+        description: document.getElementById("book-summary").value,
+        price: document.getElementById("book-price").value,
+        smallCoverUrl: document.getElementById("book-cover-small").src,
+        largeCoverUrl: document.getElementById("book-cover-large").src
+    };
+
+    fetch("save_book.php", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
+    })
+        .then((response) => {
+            if (!response.ok) {
+                throw new Error("Network response was not ok");
+            }
+            return response.json();
+        })
+        .then((result) => {
+            alert(result.message);
+        })
+        .catch((error) => {
+            console.error("Error saving book details:", error);
+            alert("An error occurred while saving the book details.");
+        });
+}

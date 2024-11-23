@@ -224,40 +224,61 @@ h1 {
     min-height: 530px;
 }
 
-.hidden {
-    display: none;
-}
-
 .listing-box {
-    display: grid;
     min-height: 500px;
 }
 
 .fetch-box {
-    padding-bottom: 30px;
+    padding-bottom: 50px;
+}
+
+#book-details {
+    border: 1px solid #d7d7d7;
+    padding: 20px;
+    display: flex;
+    flex-wrap: wrap; /* Allow items to wrap to the next row */
+    margin-bottom: 50px;
+}
+
+#editor-title {
+    flex: 1 1 100%;
+}
+
+.details-container {
+    flex: 1 1 100%;
+    display: flex;
+}
+
+.text-box {
+    margin: 20px;
+    padding: 10px 10px 10px 20px;
+    max-height: 450px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end; 
+    gap: 0.6em;     
+    flex: 1 1 40%;              
 }
 
 .image-box {
     display: flex;
-    justify-content: center;
+    justify-content: left;
+    flex: 1 1 60%;
 }
 
 #book-cover-small {
     max-height: 150px;
+    margin: 20px 0px 20px 0px;
     padding: 10px;
 }
 
 #book-cover-large {
     max-height: 400px;
+    margin: 20px 0px 20px 0px;
     padding: 10px;
 }
 
-.details-box {
-    padding: 10px 10px 10px 20px;
-    max-height: 450px;
-}
-
-#fetch-button {
+.listing-button {
     margin-left: 10px;
     padding: 1px 15px;
     background-color: #d7d7d7;
@@ -266,6 +287,10 @@ h1 {
     cursor: pointer;
     font-size: 16px;
     justify-content: center;
+}
+
+#save-button {
+    font-size: 20px;
 }
 
 #isbn-input {
@@ -281,4 +306,29 @@ h1 {
 #isbn-input:focus {
     border-color: rgb(60, 60, 60);
     outline: none;
+}
+
+.listing-label {
+    vertical-align: top;
+    display: inline-block;
+}
+
+.listing-input {
+    padding: 1px 5px 1px 5px;
+    width: 400px;
+    background-color: #ffffff;
+    color: rgb(60, 60, 60);
+    border: 1px solid #d7d7d7;
+    font-size: 16px;
+    justify-content: right;
+    display: inline-block;
+}
+
+.listing-input:focus {
+    border-color: rgb(60, 60, 60);
+    outline: none;
+}
+
+#suggested-contribution {
+    width: 220px;
 }
