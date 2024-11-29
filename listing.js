@@ -121,7 +121,8 @@ function saveBookDetails() {
         authors: document.getElementById("book-author").value,
         genre: document.getElementById("book-genre").value,
         description: document.getElementById("book-summary").value,
-        price: document.getElementById("book-price").value,
+        condition: document.getElementById("book-condition").value,
+        price: document.getElementById("suggested-contribution").value,
         smallCoverUrl: document.getElementById("book-cover-small").src,
         largeCoverUrl: document.getElementById("book-cover-large").src
     };

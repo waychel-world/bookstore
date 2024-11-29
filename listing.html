@@ -43,33 +43,42 @@
                 
                     <div class="details-container">
 
-                        <div class="text-box">
+                        <form class="text-box">
 
                             <div>
                                 <label class="listing-label">Title:</label>
-                                <input type="text" id="book-title" class="listing-input" />
+                                <input type="text" name="book-title" id="book-title" class="listing-input" required>
                             </div>
                             <div>
                                 <label class="listing-label">Author(s):</label>
-                                <input type="text" id="book-author" class="listing-input" />
+                                <input type="text" name="book-author" id="book-author" class="listing-input" required>
                             </div>
                             <div>
                                 <label class="listing-label">Genre:</label>
-                                <input type="text" id="book-genre" class="listing-input" />
+                                <input type="text" name="book-genre" id="book-genre" class="listing-input" required>
                             </div>
                             <div>
                                 <label class="listing-label">Summary:</label>
-                                <textarea id="book-summary" rows="12" cols="100" class="listing-input"></textarea>
+                                <textarea name="book-summary" id="book-summary" rows="12" cols="100" class="listing-input" required></textarea>
+                            </div>
+                            <div>
+                                <label class="listing-label">Condition:</label>
+                                <select name="book-condition" id="book-condition" class="listing-input" required>
+                                    <option value="Brand new">Brand new</option>
+                                    <option value="Like new">Like new</option>
+                                    <option value="Lightly used">Lightly used</option>
+                                    <option value="Well loved">Well loved</option>
+                                </select>
                             </div>
                             <div>
                                 <label class="listing-label">Suggested contribution:</label>
-                                <input type="number" id="suggested-contribution" class="listing-input" step="0.01" min="0" placeholder="$0.00" />
+                                <input type="number" name="suggested-contribution" id="suggested-contribution" class="listing-input" step="0.01" min="0" placeholder="$0.00" required>
                             </div>
                             <div>
-                                <button id="save-button" class="listing-button">list it!</button>
+                                <input type="submit" value="list it!" id="save-button" class="listing-button">
                             </div>
                             
-                        </div>
+                        </form>
     
                         <div class="image-box">
                             <img id="book-cover-large" alt="Book Cover - Large">

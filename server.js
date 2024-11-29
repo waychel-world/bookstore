@@ -1,4 +1,6 @@
+//redo this file  - new field: conditions 
 
+require('dotenv').config({ path: './config.env' }); 
 
 
 const express = require("express");
@@ -16,9 +18,10 @@ app.use(bodyParser.json()); // Parse JSON request bodies
 // MySQL Connection
 const db = mysql.createConnection({
   host: process.env.DB_HOST,
+  port: 3306, // MySQL default port
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
-  database: 'books_db', // Replace with your database name
+  database: 'books_database', // mySQL database name
 });
 
 db.connect((err) => {
@@ -31,18 +34,18 @@ db.connect((err) => {
 
 // Route to save book details
 app.post("/saveBook", (req, res) => {
-  const { title, author, summary, genre, smallCover, largeCover } = req.body;
+  const { title, author, summary, condition, genre, smallCover, largeCover } = req.body;
 
   if (!title || !author) {
     return res.status(400).json({ error: "Title and author are required!" });
   }
 
   const sql = `
-    INSERT INTO books (title, author, summary, genre, small_cover, large_cover)
+    INSERT INTO books (title, author, summary, condition, genre, small_cover, large_cover)
     VALUES (?, ?, ?, ?, ?, ?)
   `;
 
-  db.query(sql, [title, author, summary, genre, smallCover, largeCover], (err, result) => {
+  db.query(sql, [title, author, summary, condition, genre, smallCover, largeCover], (err, result) => {
     if (err) {
       console.error("Error saving book details:", err);
       return res.status(500).json({ error: "Failed to save book details." });
