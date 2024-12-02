@@ -7,6 +7,7 @@ function resetBookDetails() {
     document.getElementById("book-author").value = "";
     document.getElementById("book-summary").value = "";
     document.getElementById("book-genre").value = "";
+    document.getElementById("book-condition").value = "";
     document.getElementById("suggested-contribution").value = "";
     console.log("data cleared")
 }
