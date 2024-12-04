@@ -1,16 +1,31 @@
-require('dotenv').config({ path: './config.env' }); 
+// require('dotenv').config({ path: './config.env' }); 
+
+// Serve the favicon 
+/*
+app.get('/favicon.ico', (req, res) => {
+    res.sendFile(path.join(__dirname, 'favicon.ico'));
+});
+*/
+
 
 const express = require('express');
 const cors = require('cors');
 const mysql = require('mysql2');
 const bodyParser = require('body-parser');
+const path = require('path');
+
 
 const app = express();
-const PORT = 3000;
 
 // Middleware
 app.use(cors()); // Fixes CORS errors
 app.use(bodyParser.json()); // Parses JSON request bodies
+
+// Serve static files from the "bookstore" directory
+app.use(express.static(path.join(__dirname, 'bookstore')));
+
+
+
 
 /* MySQL Connection 
 const db = mysql.createConnection({
@@ -22,9 +37,8 @@ const db = mysql.createConnection({
 });
 */
 
-
 const db = mysql.createConnection({
-    host: 'localhost',
+    host: '127.0.0.1', // MAMP MySQL host
     port: 8889,
     user: 'root',
     password: 'root',
@@ -41,23 +55,38 @@ db.connect((err) => {
 
 
 
-/*
+// API endpoint to save book details
+app.post('/api/books', (req, res) => {
+    const { isbn, title, authors, genre, summary, book_condition, contribution, smallCoverUrl, largeCoverUrl } = req.body;
 
-// Connect to MySQL
-db.connect((err) => {
-    if (err) {
-        console.error('Error connecting to the database:', err.message);
-        return;
-    }
-    console.log('Connected to the MySQL database.');
+    const sql = `INSERT INTO books (isbn, title, authors, genre, summary, book_condition, contribution, smallCoverUrl, largeCoverUrl) 
+                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+
+    db.query(sql, [isbn, title, authors, genre, summary, book_condition, contribution, smallCoverUrl, largeCoverUrl], (err, result) => {
+        if (err) {
+            console.error("Error inserting book details:", err);
+            res.status(500).json({ message: "Failed to save book details." });
+            return;
+        }
+        res.status(200).json({ message: "Book details saved successfully." });
+    });
 });
 
 
-*/
+
+// Start the server
+const PORT = 8000;
+app.listen(PORT, () => {
+    console.log(`Server is running on http://127.0.0.1:${PORT}`);
+});
 
 
 
-// Route to handle adding book data to the database
+
+
+
+
+/* Route to handle adding book data to the database
 app.post('/add-book', (req, res) => {
     const { 
         isbn, 
@@ -90,20 +119,4 @@ app.post('/add-book', (req, res) => {
     });
 });
 
-// Start the server
-app.listen(PORT, () => {
-    console.log(`Server is running on http://localhost:${PORT}`);
-});
-
-
-
-const path = require('path');
-
-// Serve the favicon
-app.get('/favicon.ico', (req, res) => {
-    res.sendFile(path.join(__dirname, 'favicon.ico'));
-});
-
-app.listen(5500, () => {
-    console.log('Server is running on http://127.0.0.1:5500');
-});
+*/

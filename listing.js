@@ -1,8 +1,8 @@
 //CLEAR OLD DATA 
 
 function resetBookDetails() {
-    document.getElementById("book-cover-small").src = "https://via.placeholder.com/150";
-    document.getElementById("book-cover-large").src = "https://via.placeholder.com/400";
+    document.getElementById("book-cover-small").src = "book.jpg";
+    document.getElementById("book-cover-large").src = "book.jpg";
     document.getElementById("book-title").value = "";
     document.getElementById("book-author").value = "";
     document.getElementById("book-summary").value = "";
@@ -35,11 +35,11 @@ async function fetchBookDetails() {
   const openLibraryUrl = `https://openlibrary.org/api/books?bibkeys=ISBN:${isbn}&format=json&jscmd=data`;
   const googleBooksUrl = `https://www.googleapis.com/books/v1/volumes?q=isbn:${isbn}`;
 
-  let largeImage = "https://via.placeholder.com/400";
-  let smallImage = "https://via.placeholder.com/150";
+  let largeImage = "book.jpg";
+  let smallImage = "book.jpg";
   let title = "No Title Available";
   let authors = "Unknown Author";
-  let description = "No description available.";
+  let description = "No description available."; //summary
   let categories = "No categories available.";
 
   try {
@@ -65,8 +65,8 @@ async function fetchBookDetails() {
 
           title = googleBook.title || title;
           authors = googleBook.authors?.join(", ") || authors;
-          description = googleBook.description || description;
-          categories = googleBook.categories?.join(", ") || categories;
+          description = googleBook.description || description; //summary
+          categories = googleBook.categories?.join(", ") || categories; //genre
           smallImage = googleBook.imageLinks?.smallThumbnail || smallImage;
       }
   } catch (error) {
@@ -121,14 +121,14 @@ function saveBookDetails() {
         title: document.getElementById("book-title").value,
         authors: document.getElementById("book-author").value,
         genre: document.getElementById("book-genre").value,
-        description: document.getElementById("book-summary").value,
-        condition: document.getElementById("book-condition").value,
-        price: document.getElementById("suggested-contribution").value,
+        summary: document.getElementById("book-summary").value,
+        book_condition: document.getElementById("book-condition").value,
+        contribution: document.getElementById("suggested-contribution").value,
         smallCoverUrl: document.getElementById("book-cover-small").src,
         largeCoverUrl: document.getElementById("book-cover-large").src
     };
 
-    fetch("save_book.php", {
+    fetch('http://127.0.0.1:8000/api/books', {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
