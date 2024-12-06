@@ -47,18 +47,54 @@ function resetInterval() {
 showSlide(currentSlide);
 startInterval();
 
+// Fetch books from database
+document.addEventListener('DOMContentLoaded', async () => {
+    const container = document.querySelector('.book-container');
+    
+   // Fetch books from the database
+    try {
+      const response = await fetch('http://127.0.0.1:8000/api/books'); // Explicit IP for MAMP
+      const data = await response.json();
+      
+      // Log the fetched data for debugging
+      console.log('Fetched data:', data);
 
-// Clone placeholder book
-document.addEventListener('DOMContentLoaded', () => {
-  const container = document.querySelector('.book-container');
-  const item = document.querySelector('.book'); // Select the item to clone
+      // Ensure the data is an array before proceeding
+      if (Array.isArray(data)) {
+          
+          const books = data; // Assign the fetched data to `books`
+          
+          // Populate the book container with data from the database
+          books.forEach(book => {
+            
+              const bookElement = document.createElement('div');
+              bookElement.className = 'book';
+              bookElement.innerHTML = `
+                  <div class="book-box">
+                      <div class="book-image-box">
+                          <img src="${book.smallCoverUrl}" alt="Book Cover" class="book-cover">
+                      </div>
+                      <div class="book-text-box">
+                          <p class="book-author">${book.authors}</p>
+                          <h2 class="book-title">${book.title}</h2>
+                          <p class="suggested-contribution">$${book.contribution}</p>
+                      </div>
+                  </div>
+              `;
 
-  for (let i = 2; i <= 15; i++) { // Clone it 9 more times
-    const clone = item.cloneNode(true); // Deep copy the item with all its children
-    container.appendChild(clone); // Append clone to the container
-  }
+              container.appendChild(bookElement);
+              
+          });
+      } else {
+          console.error('Expected an array but received:', data);
+          container.innerHTML = '<p>Invalid data format. Please check the API response.</p>';
+      }
+    } catch (error) {
+      console.error('Error fetching books:', error);
+      container.innerHTML = '<p>Failed to load books. Please try again later.</p>';
+    }
+
 });
-
 
 // Button toggle functionality
 

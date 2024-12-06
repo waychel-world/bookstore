@@ -10,7 +10,7 @@ app.get('/favicon.ico', (req, res) => {
 
 const express = require('express');
 const cors = require('cors');
-const mysql = require('mysql2');
+const mysql = require('mysql2/promise');
 const bodyParser = require('body-parser');
 const path = require('path');
 
@@ -37,7 +37,7 @@ const db = mysql.createConnection({
 });
 */
 
-const db = mysql.createConnection({
+const db = mysql.createPool({
     host: '127.0.0.1', // MAMP MySQL host
     port: 8889,
     user: 'root',
@@ -45,6 +45,8 @@ const db = mysql.createConnection({
     database: 'bookstore'
 });
 
+
+/*
 db.connect((err) => {
     if (err) {
         console.error('Database connection failed:', err.message);
@@ -52,6 +54,7 @@ db.connect((err) => {
     }
     console.log('Connected to MAMP MySQL database.');
 });
+*/
 
 
 
@@ -69,6 +72,7 @@ app.post('/api/books', (req, res) => {
             return;
         }
         res.status(200).json({ message: "Book details saved successfully." });
+        console.log("Book details saved successfully.");
     });
 });
 
@@ -76,47 +80,28 @@ app.post('/api/books', (req, res) => {
 
 // Start the server
 const PORT = 8000;
+
+app.get('/api/books', async (req, res) => {
+
+    console.log("API hit")
+    
+    try {
+        // Example query to fetch books from the MySQL database
+        const [rows] = await db.query('SELECT * FROM books'); // Adjust the query to match your database schema
+
+        // Log the data for debugging
+        console.log("Books fetched from database:", rows);
+
+        // Send the data as JSON
+        res.json(rows);
+    } catch (error) {
+        console.error("Error fetching books from database:", error);
+        res.status(500).json({ error: "Failed to fetch books" });
+    }
+});
+
+
 app.listen(PORT, () => {
     console.log(`Server is running on http://127.0.0.1:${PORT}`);
 });
 
-
-
-
-
-
-
-/* Route to handle adding book data to the database
-app.post('/add-book', (req, res) => {
-    const { 
-        isbn, 
-        title, 
-        authors, 
-        genre, 
-        summary, 
-        book_condition, 
-        contribution, 
-        smallCoverUrl, 
-        largeCoverUrl, 
-    } = req.body;
-
-    if (!isbn || !title || !authors || !genre || !summary || !book_condition || !contribution || !smallCoverUrl || !largeCoverUrl) {
-        return res.status(400).json({ error: 'All fields are required.' });
-    }
-
-    const query = `
-        INSERT INTO books 
-        (isbn, title, authors, genre, summary, book_condition, contribution, smallCoverUrl, largeCoverUrl) 
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
-    `;
-
-    db.execute(query, [isbn, title, authors, genre, summary, book_condition, contribution, smallCoverUrl, largeCoverUrl], (err, results) => {
-        if (err) {
-            console.error('Error inserting data:', err.message);
-            return res.status(500).json({ error: 'Failed to add book to the database.' });
-        }
-        res.status(200).json({ message: 'Book added successfully!', bookId: results.insertId });
-    });
-});
-
-*/
