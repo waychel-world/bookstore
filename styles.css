@@ -122,6 +122,18 @@ h1 {
     padding-bottom: 30px;
 }
 
+h2 {
+    padding-bottom: 3px;
+}
+
+h3 {
+    font-size: 14px;
+    font-weight: normal; 
+    color: gray;
+    text-align: left;
+    padding-bottom: 3px;
+}
+
 .book-container {
     display: grid;
     grid-template-columns: repeat(5, 1fr); /* 5 columns of equal width */
@@ -145,7 +157,7 @@ h1 {
     width: 160px;
     height: 160px;
     padding: 20px;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
     justify-content: center;
     vertical-align: middle;
 };
@@ -190,6 +202,7 @@ h1 {
 #toggle-button:hover {
     background-color:#565656;
     color: white;
+    flex-shrink: 0;
 }
 
 /* back to top button */

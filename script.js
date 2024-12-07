@@ -75,7 +75,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                           <img src="${book.smallCoverUrl}" alt="Book Cover" class="book-cover">
                       </div>
                       <div class="book-text-box">
-                          <p class="book-author">${book.authors}</p>
+                          <h3 class="book-author">${book.authors}</h3>
                           <h2 class="book-title">${book.title}</h2>
                           <p class="suggested-contribution">$${book.contribution}</p>
                       </div>
