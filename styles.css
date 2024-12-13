@@ -197,6 +197,7 @@ h3 {
     font-size: 16px;
     justify-content: center;
     width: 78px;
+    flex-shrink: 0;
 }
 
 #toggle-button:hover {
