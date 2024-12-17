@@ -3,6 +3,18 @@
     margin: 0;
 }
 
+a {
+    text-decoration: none;
+}
+
+p {
+    color: black;
+}
+
+.content {
+    padding: 50px;
+}
+
 /* header */
 
 .header {
@@ -124,6 +136,7 @@ h1 {
 
 h2 {
     padding-bottom: 3px;
+    color: black;
 }
 
 h3 {
@@ -250,7 +263,7 @@ h3 {
     padding-bottom: 50px;
 }
 
-#book-details {
+#book-editor {
     border: 1px solid #d7d7d7;
     padding: 20px;
     display: flex;
@@ -354,3 +367,6 @@ h3 {
 #book-condition {
     width: 220px;
 }
+
+/* book details */
+

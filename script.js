@@ -71,14 +71,16 @@ document.addEventListener('DOMContentLoaded', async () => {
               bookElement.className = 'book';
               bookElement.innerHTML = `
                   <div class="book-box">
-                      <div class="book-image-box">
-                          <img src="${book.smallCoverUrl}" alt="Book Cover" class="book-cover">
-                      </div>
-                      <div class="book-text-box">
-                          <h3 class="book-author">${book.authors}</h3>
-                          <h2 class="book-title">${book.title}</h2>
-                          <p class="suggested-contribution">$${book.contribution}</p>
-                      </div>
+                      <a href="book-details.html?id=${book.id}" target="_blank">
+                          <div class="book-image-box">
+                              <img src="${book.smallCoverUrl}" alt="Book Cover" class="book-cover">
+                          </div>
+                          <div class="book-text-box">
+                              <h3 class="book-author">${book.authors}</h3>
+                              <h2 class="book-title">${book.title}</h2>
+                              <p class="suggested-contribution">$${book.contribution}</p>
+                          </div>
+                      </a>
                   </div>
               `;
 

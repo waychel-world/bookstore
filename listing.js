@@ -82,7 +82,7 @@ async function fetchBookDetails() {
   document.getElementById("book-genre").value = categories;
 
   // Show details section
-  document.getElementById("book-details").style.display = "flex";
+  document.getElementById("book-editor").style.display = "flex";
 }
 
 

@@ -58,7 +58,7 @@ db.connect((err) => {
 
 
 
-// API endpoint to save book details
+// API endpoint to save book details for listing.html
 app.post('/api/books', (req, res) => {
     const { isbn, title, authors, genre, summary, book_condition, contribution, smallCoverUrl, largeCoverUrl } = req.body;
 
@@ -82,15 +82,10 @@ app.post('/api/books', (req, res) => {
 const PORT = 8000;
 
 app.get('/api/books', async (req, res) => {
-
-    console.log("API hit")
     
     try {
         // Example query to fetch books from the MySQL database
         const [rows] = await db.query('SELECT * FROM books'); // Adjust the query to match your database schema
-
-        // Log the data for debugging
-        console.log("Books fetched from database:", rows);
 
         // Send the data as JSON
         res.json(rows);
@@ -105,3 +100,26 @@ app.listen(PORT, () => {
     console.log(`Server is running on http://127.0.0.1:${PORT}`);
 });
 
+
+
+// Route to fetch book details by ID for book-details.html
+app.get('/api/books/:id', async (req, res) => {
+
+    const bookId = req.params.id; // Extract the book ID from the URL
+
+    try {
+        
+        const [rows] = await db.query('SELECT * FROM books WHERE id = ?', [bookId]);
+
+        
+        // Check if the book was found
+        if (rows.length > 0) {
+            res.json(rows[0]); // Send the book details as JSON
+        } else {
+            res.status(404).json({ error: 'Book not found' });
+        }
+    } catch (err) {
+        console.error('Database query error:', err);
+        res.status(500).json({ error: 'Database query failed' });
+    }
+});

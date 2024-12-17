@@ -17,7 +17,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Permanent+Marker&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
 </head>
 
-<body id="home-page">
+<body>
 
     <header id="header-box">
         <a class="header" id="home-button" href="index.html">bookstore for mutual aid</a>
@@ -31,38 +31,23 @@
 
     <main>
 
-        <section class="carousel">
-            <div class="carousel-images">
-                <a href="impact.html" target="_blank">
-                    <img src="image1.jpg" class="slide" style="display: block;">
-                </a>
-                <a href="howthisworks.html" target="_blank">
-                    <img src="image2.jpg" class="slide">
-                </a>
-                <a href="waitlist.html" target="_blank">
-                    <img src="image3.jpg" class="slide">
-                </a>
+            <div id="book-details" class="content">
+                
+                        <div class="details-image-box">
+                            <img src="book.jpg" alt="Large Book Cover" id="book-cover-large" class="book-cover-large">
+                            <img src="book.jpg" alt="Small Book Cover" id="book-cover-small" class="book-cover-small">
+                        </div>
+                        
+                        <div class="details-text-box">
+                            <p id="book-author" class="book-author">Author: Placeholder</p>
+                            <h2 id="book-title" class="book-title">Book Title</h2>
+                            <p id="suggested-contribution" class="suggested-contribution">$0.00</p>
+                        </div>
+
             </div>
-            <div class="carousel-dots">
-                <span class="dot" onclick="goToSlide(0)"></span>
-                <span class="dot" onclick="goToSlide(1)"></span>
-                <span class="dot" onclick="goToSlide(2)"></span>
-            </div>
-        </section>
-
-        <section id="storefront">    
-            <h1>browse books >></h1>
-            <section class="book-container" id="book-section">
-
-                <!-- innerHTML from script.js -->
-
-            </section>
-            <button id="toggle-button">more</button>
-        </section>
-        
-        <button id="back-to-top" title="Back to Top">↑</button>
-
-
+            
+            <!-- <button onclick="addToCart()">Add to Cart</button> -->
+        </div>
     </main>
 
     <footer>
@@ -73,6 +58,7 @@
         </section>
     </footer>
 
-    <script src="script.js"></script>
+    <script src="book-details.js"></script>
 </body>
+
 </html>
