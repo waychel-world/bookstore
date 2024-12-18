@@ -12,14 +12,18 @@ document.addEventListener('DOMContentLoaded', () => {
         return response.json();
     })
     .then(book => {
-        document.getElementById('book-title').textContent = book.title;
-        document.getElementById('book-author').textContent = `Author: ${book.authors}`;
-        // document.getElementById('book-description').textContent = book.summary;
-        document.getElementById('suggested-contribution').textContent = `Suggested contribution: $${book.contribution}`;
+        document.getElementById('details-title').textContent = book.title;
+        document.getElementById('details-author').textContent = `${book.authors}`;
+        document.getElementById('details-condition').textContent = `${book.book_condition}`;
+        document.getElementById('details-contribution').textContent = `$${book.contribution}`;   
+        document.getElementById('details-isbn').textContent = book.isbn;
+        document.getElementById('details-genre').textContent = book.genre;
+        document.getElementById('details-summary').textContent = book.summary;
+
     })
     .catch(err => {
         console.error('Error fetching book details:', err);
-        document.getElementById('book-details').textContent = 'Failed to load book details.';
+        document.getElementById('book-details-box').textContent = 'Failed to load book details.';
     });
 
 });
@@ -28,4 +32,5 @@ document.addEventListener('DOMContentLoaded', () => {
 function addToCart() {
     alert('Add to cart functionality coming soon!');
 }
+
 */

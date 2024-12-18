@@ -31,17 +31,35 @@
 
     <main>
 
-            <div id="book-details" class="content">
+            <div id="book-details-box" class="book-details-box">
                 
                         <div class="details-image-box">
-                            <img src="book.jpg" alt="Large Book Cover" id="book-cover-large" class="book-cover-large">
-                            <img src="book.jpg" alt="Small Book Cover" id="book-cover-small" class="book-cover-small">
+                            <div class="image-box-large">
+                                <img src="book.jpg" alt="Large Book Cover" id="details-cover-large" class="details-cover-large">
+                            </div>
+                            <div class="image-box-small">
+                                <img src="book.jpg" alt="Small Book Cover" id="details-cover-small" class="details-cover-small">
+                            </div>
                         </div>
                         
                         <div class="details-text-box">
-                            <p id="book-author" class="book-author">Author: Placeholder</p>
-                            <h2 id="book-title" class="book-title">Book Title</h2>
-                            <p id="suggested-contribution" class="suggested-contribution">$0.00</p>
+                            <p id="details-title" class="details-title">Book Title</p>
+                            <p id="details-author-label" class="details-label">by </p><p id="details-author" class="inline">Author</p>
+                            <br>
+                            <br>
+                            <p id="details-condition-label" class="details-label">Condition: </p><p id="details-condition" class="inline"></p>
+                            <br>
+                            <br>
+                            <p id="details-contribution-label" class="details-label">Suggested contribution:</p>
+                            <p id="details-contribution" class="details-contribution">$0.00</p>
+                            <br>
+                            <p id="details-isbn-label" class="details-label">ISBN: </p><p id="details-isbn" class="inline"></p>
+                            <br>
+                            <p id="details-genre-label" class="details-label">Genre: </p><p id="details-genre" class="inline"></p>
+                            <br>
+                            <br>
+                            <p id="details-summary-label" class="details-summary-label">Summary: </p>
+                            <p id="details-summary" class="details-summary">Lorem ipsum</p>
                         </div>
 
             </div>
