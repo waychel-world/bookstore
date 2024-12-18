@@ -390,6 +390,7 @@ h3 {
     justify-content: center;
     vertical-align: middle;
     flex: 1 1 100%;
+    align-items: center;
 }
 
 .image-box-small {
@@ -399,16 +400,17 @@ h3 {
     padding: 15px;
     justify-content: center;
     vertical-align: middle;
+    align-items: center;
 }
 
 .details-cover-large {
     max-height: 400px;
+    height: 100%;
 }
 
 .details-cover-small {
     max-height: 150px;
 }
-
 
 .details-text-box {
     margin-left: 30px;

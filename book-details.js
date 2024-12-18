@@ -12,6 +12,15 @@ document.addEventListener('DOMContentLoaded', () => {
         return response.json();
     })
     .then(book => {
+
+        document.getElementById('details-image-box').innerHTML = `
+            <div class="image-box-large">
+                <img src="${book.largeCoverUrl}" alt="Large Book Cover" id="details-cover-large" class="details-cover-large">
+            </div>
+            <div class="image-box-small">
+                <img src="${book.smallCoverUrl}" alt="Small Book Cover" id="details-cover-small" class="details-cover-small">
+            </div>
+        `;
         document.getElementById('details-title').textContent = book.title;
         document.getElementById('details-author').textContent = `${book.authors}`;
         document.getElementById('details-condition').textContent = `${book.book_condition}`;
