@@ -21,6 +21,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 <img src="${book.smallCoverUrl}" alt="Small Book Cover" id="details-cover-small" class="details-cover-small">
             </div>
         `;
+        document.getElementById('add-to-cart-button').innerHTML = `
+            <input type="submit" value="Add to Cart" id="add-to-cart-button" class="add-to-cart-button" data-book-id="${book.id}">
+        `;
         document.getElementById('details-title').textContent = book.title;
         document.getElementById('details-author').textContent = `${book.authors}`;
         document.getElementById('details-condition').textContent = `${book.book_condition}`;
@@ -37,9 +40,29 @@ document.addEventListener('DOMContentLoaded', () => {
 
 });
 
-/*
-function addToCart() {
-    alert('Add to cart functionality coming soon!');
-}
 
-*/
+// Add to Cart function using Local Storage
+
+document.getElementById('add-to-cart-button').addEventListener('click', event => {
+    const bookId = event.target.getAttribute('data-book-id'); // Get book ID
+    addToCart(bookId); // Call the function to add to the cart
+});
+
+function addToCart(bookId) {
+    // Retrieve existing cart from local storage or start with an empty array
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+    // Check if the book is already in the cart
+    const existingItem = cart.find(item => item.bookId === bookId);
+    if (existingItem) {
+        alert('This book is already in your cart!') // if the book already exists in cart
+    } else {
+        cart.push({ bookId: bookId }); // Add new book to cart
+        alert('Book added to cart!');
+    }
+
+    // Save the updated cart back to local storage
+    localStorage.setItem('cart', JSON.stringify(cart));
+
+    console.log(cart)
+}

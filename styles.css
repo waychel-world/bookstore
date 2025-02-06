@@ -49,6 +49,8 @@ p {
     text-align: right;
 }
 
+
+
 /* footer */
 
 .footer {
@@ -131,7 +133,6 @@ h1 {
     font-weight: normal;
     flex: 1;
     font-family: 'Roboto', sans-serif;
-    padding-bottom: 30px;
 }
 
 h2 {
@@ -253,6 +254,10 @@ h3 {
 .list-books {
     padding: 0px 50px 0px 50px;
     min-height: 530px;
+}
+
+.list-title {
+    padding-bottom: 30px;
 }
 
 .listing-box {
@@ -444,4 +449,97 @@ h3 {
     font-size: 18px;
     font-weight: bold;
     padding-bottom: 5px;
+}
+
+.add-to-cart-button {
+    padding: 5px 10px;
+    background-color: #606060;
+    color: rgb(255, 255, 255);
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    justify-content: center;
+}
+
+
+/* cart.html */
+
+
+.cart-page-container {
+    display: flex;
+    gap: 50px;
+}
+
+.shopping-cart-box {
+    display: flex;
+    flex: 1 1 70%;
+    flex-direction: column;
+}
+
+.checkout-box {
+    flex: 1 1 30%;
+    display: flex;
+}
+
+.shopping-cart-title {
+    margin: 0px 50px 15px 50px;
+}
+
+.cart-box {
+    margin: 0px 50px 300px 50px;
+    border-style: solid;
+    border-color: #d7d7d7;
+    border-width: 2px 0;
+    padding: 20px 30px 20px 30px;
+    display: block;
+    flex: 1 1 100%;
+    gap: 30px;
+}
+
+.cart-item {
+    padding: 20px 0px 20px 0px;
+    display: flex;
+    flex: 0 0 100%;
+    gap: 30px;
+}
+
+.cart-image-box {
+    flex: 0 0 auto;
+    display: flex;
+    background-color: #f8f8f8;
+    width: 160px;
+    height: 160px;
+    padding: 20px;
+    justify-content: center;
+    vertical-align: middle;
+}
+
+.cart-details {
+    flex: 1 1 70%; /* Allocate proper space */
+}
+
+.cart-details-content {
+    margin-bottom: 10px;
+}
+
+.cart-item-condition {
+    font-size: 15px;
+}
+
+.cart-item-author {
+    font-size: 15px;
+}
+
+.cart-item-contribution {
+    font-size: 20px;
+}
+
+.remove-button {
+    padding: 3px 10px;
+    background-color: gray;
+    color: rgb(255, 255, 255);
+    border: none;
+    cursor: pointer;
+    font-size: 12px;
+    justify-content: center;
 }

@@ -14,7 +14,6 @@ const mysql = require('mysql2/promise');
 const bodyParser = require('body-parser');
 const path = require('path');
 
-
 const app = express();
 
 // Middleware
@@ -45,19 +44,6 @@ const db = mysql.createPool({
     database: 'bookstore'
 });
 
-
-/*
-db.connect((err) => {
-    if (err) {
-        console.error('Database connection failed:', err.message);
-        process.exit(1);
-    }
-    console.log('Connected to MAMP MySQL database.');
-});
-*/
-
-
-
 // API endpoint to save book details for listing.html
 app.post('/api/books', (req, res) => {
     const { isbn, title, authors, genre, summary, book_condition, contribution, smallCoverUrl, largeCoverUrl } = req.body;
@@ -81,11 +67,13 @@ app.post('/api/books', (req, res) => {
 // Start the server
 const PORT = 8000;
 
+
+// Route to fetch books from database for index.html 
 app.get('/api/books', async (req, res) => {
     
     try {
         // Example query to fetch books from the MySQL database
-        const [rows] = await db.query('SELECT * FROM books'); // Adjust the query to match your database schema
+        const [rows] = await db.query('SELECT * FROM books'); 
 
         // Send the data as JSON
         res.json(rows);
@@ -121,5 +109,37 @@ app.get('/api/books/:id', async (req, res) => {
     } catch (err) {
         console.error('Database query error:', err);
         res.status(500).json({ error: 'Database query failed' });
+    }
+});
+
+
+
+
+// Route to fetch multiple book details for cart
+app.post('/api/cart', async (req, res) => {
+    try {
+        const bookIds = req.body.ids;
+        
+        if (!bookIds || !Array.isArray(bookIds)) {
+            return res.status(400).json({ error: 'Invalid book IDs format' });
+        }
+
+        // Convert IDs to numbers to avoid SQL type issues
+        const numericIds = bookIds.map(id => parseInt(id, 10)).filter(id => !isNaN(id));
+        
+        if (numericIds.length === 0) {
+            return res.json([]);
+        }
+
+        const placeholders = numericIds.map(() => '?').join(',');
+        const [rows] = await db.query(
+            `SELECT * FROM books WHERE id IN (${placeholders})`,
+            numericIds
+        );
+
+        res.json(rows);
+    } catch (err) {
+        console.error('Database query error:', err);
+        res.status(500).json({ error: 'Failed to fetch cart items' });
     }
 });
