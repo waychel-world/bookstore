@@ -8,7 +8,6 @@ cartIds.forEach(book => {
 });
 
 
-
 async function fetchCartDetails() {
     if (cartIds.length === 0) {
         document.getElementById('cart-box').innerHTML = '<p>Your cart is empty ಠ╭╮ಠ</p>';
@@ -50,7 +49,7 @@ function renderCart(books) {
                 <h2 id="cart-item-title" class="cart-item-title cart-details-content">${item.title}</h2>
                 <h3 id="cart-item-author" class="cart-item-author cart-details-content">${item.authors}</h3>
                 <p id="cart-item-condition" class="cart-item-condition cart-details-content">Condition: ${item.book_condition}</p>
-                <input type="submit" value="Remove" id="remove-button" class="remove-button cart-details-content" data-book-id="${item.id}">
+                <input type="submit" value="Remove" id="remove-button" class="remove-button" data-book-id="${item.id}">
             </div>
             <div id="cart-contribution-box" class="cart-contribution-box">
                 <p id="cart-item-contribution" class="cart-item-contribution">$${item.contribution}</p>
@@ -59,13 +58,13 @@ function renderCart(books) {
         cartBox.appendChild(cartItem);
     });
 
-//    attachRemoveListeners(); // Re-attach event listeners for new buttons
+    attachRemoveListeners(); // Re-attach event listeners for new buttons
 }
 
 
 // Function to remove a book from the cart
-/*
 function attachRemoveListeners() {
+    console.log("attachRemoveListeners")
     const removeButtons = document.querySelectorAll('.remove-button');
     removeButtons.forEach(button => {
         button.addEventListener('click', event => {
@@ -77,42 +76,19 @@ function attachRemoveListeners() {
 
 // Function to remove a book ID from local storage
 function removeFromCart(bookId) {
-    const index = cartIds.indexOf(Number(bookId));
-    if (index !== -1) {
-        cartIds.splice(index, 1);
-        localStorage.setItem('cart', JSON.stringify(cartIds));
-        fetchCartDetails(); // Refresh cart display
-    }
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    cart = cart.filter(item => item.bookId !== bookId); // Remove item by bookId
+    localStorage.setItem('cart', JSON.stringify(cart)); // Save the updated cart
+    window.location.reload();
 }
-    */
 
 // Fetch and render cart details on page load
 fetchCartDetails();
 
 
-
-
-
-
-
-
-
-
-
-
-
-/*
-function removeFromCart(bookId) {
-    let cart = JSON.parse(localStorage.getItem('cart')) || [];
-    cart = cart.filter(item => item.bookId !== bookId); // Remove item by bookId
-    localStorage.setItem('cart', JSON.stringify(cart)); // Save the updated cart
-    alert('Book removed from cart!');
-}
-
-
+/* Reinstate if useful, not priority currently 
 function clearCart() {
     localStorage.removeItem('cart');
     alert('Cart cleared!');
 }
-
 */
