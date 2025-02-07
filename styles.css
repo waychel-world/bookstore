@@ -479,6 +479,8 @@ h3 {
 .checkout-box {
     flex: 1 1 30%;
     display: flex;
+    flex-direction: column;
+
 }
 
 .shopping-cart-title {
@@ -504,12 +506,24 @@ h3 {
 }
 
 .cart-image-box {
-    flex: 0 0 auto;
     display: flex;
     background-color: #f8f8f8;
     width: 160px;
     height: 160px;
     padding: 20px;
+    justify-content: center;
+    vertical-align: middle;
+}
+
+.cover-link {
+    max-height: 160px;
+    display: grid;
+    align-items: center;
+}
+
+.cart-book-cover {
+    display: flex;
+    max-height: 160px;
     justify-content: center;
     vertical-align: middle;
 }
@@ -542,4 +556,12 @@ h3 {
     cursor: pointer;
     font-size: 12px;
     justify-content: center;
+}
+
+.delivery-box {
+    height: 100px;
+}
+
+.total-box {
+    flex: 1 1 100%;
 }

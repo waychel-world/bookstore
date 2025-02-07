@@ -41,8 +41,8 @@ function renderCart(books) {
         cartItem.className = 'cart-item';
         cartItem.innerHTML = `
             <div id="cart-image-box" class="cart-image-box">
-                <a href="book-details.html?id=${item.id}" target="_blank">
-                    <img src="${item.smallCoverUrl}" alt="Book Cover" class="book-cover">
+                <a href="book-details.html?id=${item.id}" target="_blank" class="cover-link">
+                    <img src="${item.smallCoverUrl}" alt="Book Cover" class="cart-book-cover">
                 </a>
             </div>
             <div id="cart-details" class="cart-details">
